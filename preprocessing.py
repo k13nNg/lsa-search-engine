@@ -1,6 +1,7 @@
 import json 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from joblib import dump, load
+import pandas as pd
 import pickle
 import random
 

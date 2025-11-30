@@ -22,14 +22,19 @@ def load_engine():
 def search(query):
     U, s, Vt, vectorizer, doc_ids = load_engine()
 
+    # turn the query into vector rep. using the vectorizer that was trained on the input articles
     q_vec = vectorizer.transform([query])
 
+    # compute q_concept by projecting it on Vt.T, the term-concept matrix
     q_concept = q_vec @ Vt.T
 
-    docs_vec = U @ diags(s)
+    # obtain the document-concept search space
+    docs_vec = U @ diags(s) 
 
+    # search
     scores = cosine_similarity(q_concept, docs_vec).flatten()
 
+    # rank the results by cosine similarity
     top_indices = scores.argsort()[::-1][:TOP_K]
         
     # 5. Display
@@ -37,4 +42,4 @@ def search(query):
     for rank, idx in enumerate(top_indices):
         print(f"{rank+1}. [Score: {scores[idx]:.4f}] arXiv link: https://arxiv.org/pdf/{doc_ids[idx]}")
 
-search("skibbidi")
+search("Efficient Two-Stage Group Testing Algorithms for DNA Screening")
