@@ -18,7 +18,7 @@ def generate_math_cs_json():
                 doc = json.loads(line)
                 categories = set(doc['categories'].split())
 
-                # only record papers that match the pre-defined categories
+                # only record papers that match the filter
                 if not(categories.isdisjoint(FILTER)):
                     mini_doc = {
                         'id': doc['id'],
