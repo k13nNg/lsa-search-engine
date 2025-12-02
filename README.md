@@ -1,4 +1,5 @@
 #  Latent Semantic Analysis on arXiv papers
+![CleanShot 2025-12-02 at 00 11 32](https://github.com/user-attachments/assets/6a7f6567-2cc9-4806-b3c1-e222bb0795a5)
 
 # Abstract
 
@@ -100,6 +101,10 @@ $$
 This operation projects the entire document corpus onto the concept space. 
 
 Consequently, each row vector of matrix $P$ represents a specific document's position in this reduced-dimensional space. Finally, with both the query ($q_{concept}$) and the documents ($P$) projected onto the same basis, the system computes the cosine similarity between $q_{concept}$ and every row in $P$. The engine then retrieves and returns the IDs of the documents with the highest similarity scores.
+
+# Note
+
+Although the visualization script only shows points in 3D space (which only contains 3 most dominant concepts), the search for articles uses all 100 dimensions for improved semantic accuracy.
 
 # How to run the search engine
 
