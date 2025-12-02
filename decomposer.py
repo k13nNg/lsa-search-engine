@@ -22,40 +22,51 @@ def run_svd(document_term_matrix, k):
 
     return (U, s, Vt)
 
-def generate_scree_plot(sigma, k):
-    # 1. Plot Setup
-    plt.figure(figsize=(10, 6))
-
-    # make sure the components start from 1 (Python starts counting from 0)
-    x_axis = range(1, k+1)
+def generate_combined_scree(k_list):
+    """
+    Plots a grid of scree plots for different k values.
     
-    # Plot the raw Singular Values
-    plt.plot(x_axis, sigma, 'bo-', linewidth=2, markersize=4, label='Singular Value')
+    Parameters:
+    full_sigma: The complete array of singular values from SVD.
+    k_list: A list of integers representing the k cut-offs (e.g., [10, 50, 100, 200, 500])
+    """
+    # 1. Setup the grid (2 rows, 3 columns)
+    # figsize is (width, height)
+    fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(18, 10))
     
-    # 2. Aesthetics
-    plt.title(f'Scree Plot: Singular Values of arXiv Corpus, k = {k}', fontsize=16)
-    plt.xlabel('Latent Component', fontsize=12)
-    plt.ylabel('Singular Value', fontsize=12)
-    plt.grid(True, linestyle='--', alpha=0.6)
-    plt.legend()
+    # Flatten the 2D array of axes into a 1D array for easy looping
+    axes_flat = axes.flatten()
 
-    plt.savefig(f"scree_plot_{k}.png")
-    # plt.show()
+    # 2. Loop through your k values and plot on specific axes
+    for i, k in enumerate(k_list):
+        ax = axes_flat[i]
+        
+        # Slice the sigma array to get the top k values
+        U, s, Vt = run_svd(document_term_matrix, k)
 
-# for i in [10, 50, 100, 200, 500]:
-#     U, s, Vt = run_svd(document_term_matrix, i)
+        x_axis = range(1, k + 1)
+        
+        # Plotting
+        ax.plot(x_axis, s, 'bo-', linewidth=1.5, markersize=3)
+        
+        # Specific Aesthetics for this subplot
+        ax.set_title(f'k = {k}', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Singular Value')
+        ax.set_xlabel('Latent Component')
+        ax.grid(True, linestyle='--', alpha=0.6)
 
-#     # # save the components
-#     # with open("./pickles/U_matrix.pkl", "wb") as f:
-#     #     pickle.dump(U, f)
+    # 3. Handle the empty spot (since 2x3 = 6 slots, but you only have 5 plots)
+    # Hide the 6th subplot (index 5)
+    axes_flat[5].axis('off')
 
-#     # with open("./pickles/s_matrix.pkl", "wb") as f:
-#     #     pickle.dump(s, f)
+    # 4. Global Aesthetics
+    plt.suptitle('Scree Plots: Singular Values of arXiv Corpus (Varying k)', fontsize=16, y=0.95)
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95]) # Adjust layout to make room for suptitle
 
-#     # with open("./pickles/Vt_matrix.pkl", "wb") as f:
-#     #     pickle.dump(Vt, f)
+    # 5. Save
+    plt.savefig("combined_scree_plots.png", dpi=300)
+    plt.show()
 
-#     generate_scree_plot(s, i)
 
 U, s, Vt = run_svd(document_term_matrix, K)
 

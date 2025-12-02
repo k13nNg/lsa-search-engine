@@ -4,7 +4,7 @@ from scipy.sparse import diags
 
 TOP_K = 5
 
-# -- 1. Load Engine --
+# -- Load Components --
 with open("./pickles/U_matrix.pkl", 'rb') as f:
     U = pickle.load(f)
 with open("./pickles/s_matrix.pkl", 'rb') as f:
@@ -41,14 +41,8 @@ def search(query):
 
         result = []
             
-        # 5. Display
-        # print(f"\nTop {TOP_K} Results:")
         for rank, idx in enumerate(top_indices):
-            # print(f"{rank+1}. [Score: {scores[idx]:.4f}] arXiv link: https://arxiv.org/pdf/{doc_ids[idx]}")
             data = (rank+1, scores[idx], doc_ids[idx])
             result.append(data)
 
         return result, (q_concept[0,0], q_concept[0,1], q_concept[0,2])
-
-
-# search("Efficient Two-Stage Group Testing Algorithms for DNA Screening")
