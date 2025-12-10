@@ -28,7 +28,7 @@ The core of the search engine is the ***Singular Value Decomposition (SVD) Theor
 
 <!-- <img width="2048" height="806" alt="image" src="https://github.com/user-attachments/assets/c40828ca-4dc3-4e27-a325-ace400054940" /> -->
 
->** Theorem: (Singular Value Decomposition of Matrices)**
+>**Theorem: (Singular Value Decomposition of Matrices)**
 >
 >Let $A \in M_{m \times n}(\mathbb{F})$ be a matrix of rank $r$ with non-zero singular values $\sigma_1 \geq \cdots \geq \sigma_r > 0$.
 >Then there exist unitary matrices $U \in M_{m \times m}(\mathbb{F})$ and $V \in M_{n \times n}(\mathbb{F})$ such that
