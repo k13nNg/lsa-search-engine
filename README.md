@@ -1,5 +1,8 @@
 #  Latent Semantic Analysis on arXiv papers
-![CleanShot 2025-12-02 at 00 11 32](https://github.com/user-attachments/assets/6a7f6567-2cc9-4806-b3c1-e222bb0795a5)
+<p align = "center">
+<!-- ![CleanShot 2025-12-02 at 00 11 32](https://github.com/user-attachments/assets/6a7f6567-2cc9-4806-b3c1-e222bb0795a5) -->
+	<img src="https://github.com/user-attachments/assets/6a7f6567-2cc9-4806-b3c1-e222bb0795a5" alt="CleanShot 2025-12-02 at 00 11 32" />
+</p>
 
 # Abstract
 
