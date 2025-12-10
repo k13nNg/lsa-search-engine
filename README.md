@@ -74,7 +74,7 @@ By the ***Eckart-Young Theorem**,* the $\text{rank-}k$ truncation of the matrix 
 > \|A - B\| \geq \|A - A_k\|.
 > $$
 
-(Source https://www.math.uwaterloo.ca/~f2alfais/notes/math235-notes.pdf).
+(Source: [MATH 235 - Linear Algebra 2 Course Notes](https://www.math.uwaterloo.ca/~f2alfais/notes/math235-notes.pdf)).
 
 # Parameter
 <p align="center">
