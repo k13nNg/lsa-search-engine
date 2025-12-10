@@ -23,26 +23,63 @@ The engine was able to uncover hidden connections between various mathematical c
 
 The core of the search engine is the ***Singular Value Decomposition (SVD) Theorem***, which states:
 
-<img width="2048" height="806" alt="image" src="https://github.com/user-attachments/assets/c40828ca-4dc3-4e27-a325-ace400054940" />
+<!-- <img width="2048" height="806" alt="image" src="https://github.com/user-attachments/assets/c40828ca-4dc3-4e27-a325-ace400054940" /> -->
+
+>** Theorem: (Singular Value Decomposition of Matrices)**
+>
+>Let $A \in M_{m \times n}(\mathbb{F})$ be a matrix of rank $r$ with non-zero singular values $\sigma_1 \geq \cdots \geq \sigma_r > 0$.
+>Then there exist unitary matrices $U \in M_{m \times m}(\mathbb{F})$ and $V \in M_{n \times n}(\mathbb{F})$ such that
+>
+>$$
+>A = U \Sigma V^*,
+>$$
+>
+>where $\Sigma$ is the $m \times n$ matrix whose entries are
+>
+>$$
+\Sigma_{ij} = \begin{cases}
+\sigma_i & \text{if } i = j \leq r \\
+0 & \text{otherwise.}
+\end{cases}
+$$
+>
+>If $A \in M_{m \times n}(\mathbb{R})$ is real, then $U$ and $V$ can be chosen to be orthogonal matrices.
 
 
 Since computing and storing the full SVD of a matrix poses significant challenges in practice (and the fact that we can express $\Sigma$ as just a square matrix by dropping the extra zero rows), the LSA uses the $\text{rank-}k$ truncation of the matrix $A$, which only computes $k$ largest singular values, for some $k \in \mathbb{Z}_{\geq 0}$. 
 
-<img width="1796" height="358" alt="image" src="https://github.com/user-attachments/assets/bcdb4d94-1fad-4b90-b20f-a2bc8dfd2384" />
+<!-- <img width="1796" height="358" alt="image" src="https://github.com/user-attachments/assets/bcdb4d94-1fad-4b90-b20f-a2bc8dfd2384" /> -->
 
-
+>**Definition: (Rank-k truncation)**
+>
+>Let $A \in M_{m \times n}(\mathbb{F})$ be a rank $r$ matrix with singular values $\sigma_1 \geq \cdots \geq \sigma_r > 0$ and compact singular value decomposition $A = U_r \Sigma_r V_r^*$, where $U = [\vec{u}_1 \cdots \vec{u}_r]$ and $V = [\vec{v}_1 \cdots \vec{v}_r]$.
+>Let $k \leq r$ be a positive integer. The **rank-k truncation** of $A$ is
+>
+>$$
+A_k = \sigma_1 \vec{u}_1 \vec{v}_1^* + \cdots + \sigma_k \vec{u}_k \vec{v}_k^*.
+$$
+>
+>
 In this version of SVD, $U$ would be an $m\times k$ matrix, $\Sigma$ would be a $k \times k$ matrix, and $V^T$ would be a $k \times n$ matrix. 
 
 By the ***Eckart-Young Theorem**,* the $\text{rank-}k$ truncation of the matrix $A$, denoted $A_k$ (obtained by the Truncated SVD algorithm), is the closest $\text{rank-}k$ matrix approximation of $A$. Thus, with the constraints on computing power and storage, we can compute the Truncated SVD instead of the Full SVD of the matrix and still obtain reasonably good approximations.
 
-<img width="1796" height="380" alt="image" src="https://github.com/user-attachments/assets/5d939c7d-b27d-48fb-859a-7358780d2dc2" />
+<!-- <img width="1796" height="380" alt="image" src="https://github.com/user-attachments/assets/5d939c7d-b27d-48fb-859a-7358780d2dc2" /> -->
+
+>**Theorem: (Eckart–Young Theorem)**
+>
+> Let $A \in M_{m \times n}(\mathbb{F})$, and let $A_k$ be the rank-$k$ truncation of $A$. Let $B \in M_{m \times n}(\mathbb{F})$ be an arbitrary rank $k$ matrix. Then
+>
+> $$
+> \|A - B\| \geq \|A - A_k\|.
+> $$
 
 (Source https://www.math.uwaterloo.ca/~f2alfais/notes/math235-notes.pdf).
 
 # Parameter
-
-<img width="2048" height="1138" alt="image" src="https://github.com/user-attachments/assets/8f15bbe0-509c-4bdb-b541-aa7b0b2d6958" />
-
+<p align="center">
+<img width="80%" height="1138" alt="image" src="https://github.com/user-attachments/assets/8f15bbe0-509c-4bdb-b541-aa7b0b2d6958" />
+</p>
 
 Visual inspection of the scree plots reveals a significant drop in singular values for $k=10$ and $k=50$, indicating that these distinct rank approximations likely discard meaningful structure. However, for $k=100$ and above, the curve flattens significantly, particularly beyond the 60th component. This plateau suggests that dimensions beyond this point offer diminishing returns in capturing semantic information. Hence, $k=100$ was selected as the optimal trade-off between computational efficiency and information retention.
 
