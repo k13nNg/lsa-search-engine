@@ -94,7 +94,7 @@ Overall, the search engine can be decomposed into two parts: Indexing, and Searc
 
 Given a list of documents, the engine first constructs a [document-term matrix](https://en.wikipedia.org/wiki/Document-term_matrix) $A$ using the TF-IDF function (so it can capture the importance of word occurrences with respect to each document). Note that $A$ is an $m \times n$ matrix, where $m$ is the number of documents, and $n$ is the number of distinct terms.
 
-Since the TF-IDF function always return a real value, $U$ and $V$ are orthogonal matrices (From the above ***Theorem***). This implies $V^* = V^{-1} = V^T$.
+Since the TF-IDF function always return a real value, $U$ and $V$ are orthogonal matrices. This implies $V^* = V^{-1} = V^T$.
 
 Then, the engine applies the truncated SVD algorithm, with $k = 100$, to decompose the document-term matrix $A$ into the following product:
 
